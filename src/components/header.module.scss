@@ -1,0 +1,30 @@
+@import "../styles/vars.scss";
+.header {
+  padding: 1rem 0 3rem;
+}
+
+.title {
+  color: #000;
+  font-size: 3rem;
+  text-decoration: none;
+}
+
+.nav-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  justify-content: space-around;
+  li {
+    font-size: 0.9rem;
+    .active-nav-item {
+      color: $secondary;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+}
