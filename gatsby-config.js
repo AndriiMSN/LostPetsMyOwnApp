@@ -7,7 +7,7 @@
 module.exports = {
   /* Your site config here */
   siteMetadata: {
-    title: 'French Buldog Blog',
+    title: 'Я потерялся',
     author: 'Andrii Mosin'
   },
   plugins: [

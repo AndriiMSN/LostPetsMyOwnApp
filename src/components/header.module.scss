@@ -5,17 +5,20 @@
 
 .title {
   color: #000;
-  font-size: 3rem;
+  font-size: 1.5rem;
   text-decoration: none;
+  display:block;
+  text-align:center;
 }
 
 .nav-list {
   display: flex;
   list-style-type: none;
   margin: 0;
-  justify-content: space-around;
+  justify-content: flex-start;
   li {
     font-size: 0.9rem;
+    margin-right:20px;
     .active-nav-item {
       color: $secondary;
     }

@@ -8,10 +8,8 @@ import Head from '../components/head'
 const AboutPage = () => {
   return (
     <Layout>
-      <Head title='About' />
-      <h1>About</h1>
-      <p>My biography</p>
-      <Link to="/contact">Contact</Link>
+      <Head title='Карта' />
+      <Link to="/contact">Контакты</Link>
     </Layout>
   )
 }
