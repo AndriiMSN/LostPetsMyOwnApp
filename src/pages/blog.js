@@ -4,6 +4,7 @@ import { Link, graphql, useStaticQuery } from 'gatsby';
 import Layout from '../components/layout';
 import blogStyles from './blog.module.scss'
 import Head from '../components/head'
+import Adrress from '../components/ftechAdrress'
 
 
 
@@ -22,7 +23,7 @@ const BlogPage = () => {
           title
           slug
           publishedDate(formatString:"MMM Do, YYYY")
-					# image{file{url}}
+					image{file{url}}
           location{lat, lon}
           breed
 					find
@@ -32,12 +33,18 @@ const BlogPage = () => {
     }
   `)
   console.log(data);
-  // const token = 'pk.eyJ1IjoiYW5kcmlpbXNuIiwiYSI6ImNrZGYzZ200YTJudXQyeHNjMjk2OTk2bjUifQ.njqMX6x6U946yjJdWwA7mA';
-  // async function getAdress(lot, lan) {
-  //   const api_url = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lot},${lan}.json?access_token=${token}`)
-  //   const dataAdress = await api_url.json()
-  //   console.log(dataAdress);
+
+
+  // ${edge.node.location.lat},${edge.node.location.lon}
+  // async () => {
+  //   const api_url = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${edge.node.location.lat},${edge.node.location.lon}.json?access_token=${token}`)
+  //   const dataAddress = await api_url.json()
+  //   const json = dataAddress
+  //   console.log(json);
+  //   return `json[0]`
   // }
+
+
   // let getAdress = async (x, y) => {
   //   const api_url = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${x},${y}.json?access_token=${token}`)
   //   const dataAdress = await api_url.json()
@@ -54,7 +61,7 @@ const BlogPage = () => {
 
               <li>
                 <Link to={`/blog/${edge.node.slug}`}>
-                  <div style={{ backgroundColor: "pink" }} /*style={(edge.node.image) ? ({ backgroundImage: `url("${edge.node.image.file.url}")` }) : ({ backgroundImage: `url("https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__340.jpg")` })}*/>
+                  <div style={{ backgroundColor: "pink" }} style={(edge.node.image) ? ({ backgroundImage: `url("${edge.node.image.file.url}")` }) : ({ backgroundImage: `url("https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__340.jpg")` })}>
                     <h2>
                       {edge.node.title}
                     </h2>
@@ -67,8 +74,7 @@ const BlogPage = () => {
                     <p>
                       Статус: <span>{(edge.node.find) ? 'Найден' : 'Потерян'}</span>
                     </p>
-                    <p>
-                    </p>
+                    <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />
                   </div>
                 </Link>
 

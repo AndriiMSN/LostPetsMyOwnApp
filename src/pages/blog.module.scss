@@ -22,9 +22,14 @@
   }
   h2 {
     margin-bottom: 0;
+    background-color: rgb(182, 0, 0);
+    width: fit-content;
   }
   p {
-    color: green;
+    color: white;
+    background: black;
+    width: fit-content;
+    padding: 10px;
     font-size: 0.8rem;
     margin-top: 1rem;
     font-style: italic;
