@@ -33,23 +33,6 @@ const BlogPage = () => {
     }
   `)
   console.log(data);
-
-
-  // ${edge.node.location.lat},${edge.node.location.lon}
-  // async () => {
-  //   const api_url = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${edge.node.location.lat},${edge.node.location.lon}.json?access_token=${token}`)
-  //   const dataAddress = await api_url.json()
-  //   const json = dataAddress
-  //   console.log(json);
-  //   return `json[0]`
-  // }
-
-
-  // let getAdress = async (x, y) => {
-  //   const api_url = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${x},${y}.json?access_token=${token}`)
-  //   const dataAdress = await api_url.json()
-  //   console.log(dataAdress);
-  // }
   return (
     <Layout>
       <Head title='Blog' />

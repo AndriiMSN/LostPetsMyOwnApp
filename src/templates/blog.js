@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Map from '../components/map'
 import Layout from '../components/layout';
+import Adrress from '../components/ftechAdrress';
 
 
 
@@ -34,6 +35,7 @@ const Blog = (props) => {
     <Layout>
       <h1>{props.data.contentfulBlogPost.title}</h1>
       <p>{props.data.contentfulBlogPost.publishedDate}</p>
+      <Adrress x={props.data.contentfulBlogPost.location.lat} y={props.data.contentfulBlogPost.location.lon} />
       {documentToReactComponents(props.data.contentfulBlogPost.body.json, option)}
       <Map lat={props.data.contentfulBlogPost.location.lat} lon={props.data.contentfulBlogPost.location.lon} />
     </Layout>
