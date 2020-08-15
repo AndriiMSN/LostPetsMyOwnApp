@@ -19,9 +19,7 @@ export default class Map extends Component {
         height: 400,
         latitude: this.props.lat,
         longitude: this.props.lon,
-        zoom: 12,
-        bearing: 0,
-        pitch: 0
+        zoom: 8,
       },
       popupInfo: null
     };
