@@ -1,9 +1,9 @@
 import React from 'react';
 import { graphql } from 'gatsby'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import Map from '../components/map'
+import Map from '../components/Map/map'
 import Layout from '../components/layout';
-import Adrress from '../components/ftechAdrress'
+import Adrress from '../components/Map/ftechAdrress'
 
 
 

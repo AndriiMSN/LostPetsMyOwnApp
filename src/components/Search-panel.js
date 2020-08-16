@@ -10,11 +10,7 @@ export default class SearchPanel extends Component {
 
   render() {
     return (
-      <input
-        noValidate autoComplete="off" placeholder="City"
-        type="text"
-        onChange={}
-      />
+      <div></div>
     )
   }
 }

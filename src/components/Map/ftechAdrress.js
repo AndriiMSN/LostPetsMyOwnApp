@@ -18,6 +18,7 @@ export default function DataFteching({ x, y }) {
     }
     FtechData();
   }, [])
-  if (loading) return <div>Loading...</div>;
-  return <p> city: {adrress.features.find(place => place.id.match(region)).text} {console.log(adrress)}</p>
+  if (loading) return 'Loading...';
+  // console.log({ adrress.features.find(place => place.id.match(region)).text })
+  return (adrress.features.find(place => place.id.match(region)).text)
 }

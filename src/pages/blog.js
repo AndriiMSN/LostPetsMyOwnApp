@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../components/layout';
-import blogStyles from './blog.module.scss'
+import blogStyles from './Styles/blog.module.scss'
 import Head from '../components/head'
-import Adrress from '../components/ftechAdrress'
+import Adrress from '../components/Map/ftechAdrress'
 
 
 
@@ -37,6 +37,19 @@ const BlogPage = () => {
     <Layout>
       <Head title='Blog' />
       <h1>Blog</h1>
+      <form action="">
+        <label for="cities">Choose a city:</label>
+        <select name="cities" id="cities">
+          {data.allContentfulBlogPost.edges.map((edge) => {
+            return (
+              <option value=""><Adrress x={edge.node.location.lon} y={edge.node.location.lat} /></option>
+            )
+          }
+          )}
+        </select>
+        <br /><br />
+        <input type="submit" value="Submit" />
+      </form>
       <ol className={blogStyles.posts}>
         {
           data.allContentfulBlogPost.edges.map((edge) => {
@@ -57,7 +70,7 @@ const BlogPage = () => {
                     <p>
                       Статус: <span>{(edge.node.find) ? 'Найден' : 'Потерян'}</span>
                     </p>
-                    <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />
+                    <p>city: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} /></p>
                   </div>
                 </Link>
 
