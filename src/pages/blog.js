@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
+import Select from 'react-select';
+
 
 import Layout from '../components/layout';
 import blogStyles from './Styles/blog.module.scss'
 import Head from '../components/head'
 import Adrress from '../components/Map/ftechAdrress'
+import WithCallbacks from '../components/Search-panel';
 
 
 
@@ -33,23 +36,22 @@ const BlogPage = () => {
     }
   `)
   console.log(data);
+  const options = [];
+  data.allContentfulBlogPost.edges.map((edge) => {
+    options.push(
+      {
+        value: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />,
+        label: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />
+      })
+    console.log(options)
+  }
+  )
   return (
     <Layout>
       <Head title='Blog' />
-      <h1>Blog</h1>
-      <form action="">
-        <label for="cities">Choose a city:</label>
-        <select name="cities" id="cities">
-          {data.allContentfulBlogPost.edges.map((edge) => {
-            return (
-              <option value=""><Adrress x={edge.node.location.lon} y={edge.node.location.lat} /></option>
-            )
-          }
-          )}
-        </select>
-        <br /><br />
-        <input type="submit" value="Submit" />
-      </form>
+      <h1>lost pets</h1>
+      {}
+      <WithCallbacks options={options} />
       <ol className={blogStyles.posts}>
         {
           data.allContentfulBlogPost.edges.map((edge) => {
