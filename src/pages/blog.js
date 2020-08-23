@@ -36,21 +36,21 @@ const BlogPage = () => {
     }
   `)
   console.log(data);
-  const options = [];
-  data.allContentfulBlogPost.edges.map((edge) => {
+  const options = []
+  data.allContentfulBlogPost.edges.forEach((edge) => {
     options.push(
       {
         value: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />,
         label: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />
       })
-    console.log(options)
+    return options;
   }
   )
   return (
     <Layout>
       <Head title='Blog' />
       <h1>lost pets</h1>
-      {}
+      {console.log(options)}
       <WithCallbacks options={options} />
       <ol className={blogStyles.posts}>
         {

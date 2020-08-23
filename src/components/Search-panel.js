@@ -3,28 +3,29 @@ import React, { Component } from 'react';
 import AsyncSelect from 'react-select/async';
 
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
-const filterColors = (inputValue) => {
-  return options.filter(i =>
-    i.label.toLowerCase().includes(inputValue.toLowerCase())
-  );
-};
 
-const loadOptions = (inputValue, callback) => {
-  setTimeout(() => {
-    callback(filterColors(inputValue));
-  }, 100);
-};
+
 
 export default class WithCallbacks extends Component {
   constructor(props) {
     super(props)
     this.state = { inputValue: '' };
+    this.options = this.props.options.sort(); // prepend this
+    this.filterColors = this.filterColors.bind(this)
   }
+
+
+  filterColors = (inputValue) => {
+    return this.options.filter(i =>
+      i.value.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
+
+  loadOptions = (inputValue, callback) => {
+    setTimeout(() => {
+      callback(this.filterColors(inputValue));
+    }, 100);
+  };
 
   handleInputChange = (newValue) => {
     const inputValue = newValue.replace(/\W/g, '');
@@ -32,14 +33,14 @@ export default class WithCallbacks extends Component {
     return inputValue;
   };
   render() {
-    console.log(this.props)
+    console.log(this.props.options)
     return (
       <div>
         <pre>inputValue: "{this.state.inputValue}"</pre>
         <AsyncSelect
           cacheOptions
-          loadOptions={loadOptions}
-          defaultOptions
+          loadOptions={this.loadOptions}
+          defaultOptions={this.options}
           onInputChange={this.handleInputChange}
         />
       </div>
