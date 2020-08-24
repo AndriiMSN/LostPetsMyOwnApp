@@ -9,7 +9,13 @@ import Head from '../components/head'
 import Adrress from '../components/Map/ftechAdrress'
 import WithCallbacks from '../components/Search-panel';
 
-
+function compare(a, b) {
+  if (a.value < b.value)
+    return -1;
+  if (a.value > b.value)
+    return 1;
+  return 0;
+}
 
 const BlogPage = () => {
   const data = useStaticQuery(graphql`
@@ -36,14 +42,17 @@ const BlogPage = () => {
     }
   `)
   console.log(data);
+  const token = 'pk.eyJ1IjoiYW5kcmlpbXNuIiwiYSI6ImNrZGYzZ200YTJudXQyeHNjMjk2OTk2bjUifQ.njqMX6x6U946yjJdWwA7mA';
   const options = []
-  data.allContentfulBlogPost.edges.forEach((edge) => {
-    options.push(
-      {
-        value: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />,
-        label: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />
-      })
-    return options;
+  const region = /place/
+  data.allContentfulBlogPost.edges.forEach(async (edge) => {
+    await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${edge.node.location.lon},${edge.node.location.lat}.json?access_token=${token}`)
+      .then(response => response.json())
+      .then(json => options.push({
+        value: json.features.find(place => place.id.match(region)).text,
+        label: json.features.find(place => place.id.match(region)).text
+      }))
+    console.log(options)
   }
   )
   return (
@@ -51,7 +60,7 @@ const BlogPage = () => {
       <Head title='Blog' />
       <h1>lost pets</h1>
       {console.log(options)}
-      <WithCallbacks options={options} />
+      <WithCallbacks options={options.sort(compare)} />
       <ol className={blogStyles.posts}>
         {
           data.allContentfulBlogPost.edges.map((edge) => {

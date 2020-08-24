@@ -6,11 +6,12 @@ import AsyncSelect from 'react-select/async';
 
 
 
+
 export default class WithCallbacks extends Component {
   constructor(props) {
     super(props)
     this.state = { inputValue: '' };
-    this.options = this.props.options.sort(); // prepend this
+    this.options = this.props.options; // prepend this
     this.filterColors = this.filterColors.bind(this)
   }
 
@@ -36,12 +37,13 @@ export default class WithCallbacks extends Component {
     console.log(this.props.options)
     return (
       <div>
-        <pre>inputValue: "{this.state.inputValue}"</pre>
+        {/* <pre>inputValue: "{this.state.inputValue}"</pre> */}
         <AsyncSelect
           cacheOptions
           loadOptions={this.loadOptions}
           defaultOptions={this.options}
           onInputChange={this.handleInputChange}
+          placeholder='Введите город'
         />
       </div>
     );
