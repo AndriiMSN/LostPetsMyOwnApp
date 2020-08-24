@@ -5,31 +5,8 @@
   border-radius: 50%;
   position: relative;
   opacity: 0.5;
-  // animation-name: bg;
-  // animation-duration: 3.5s;
-  // animation-timing-function: linear;
-  // animation-delay: 2s;
-  // animation-iteration-count: infinite;
-  // animation-direction: alternate;
 }
 
-// @keyframes bg {
-//   0% {
-//     opacity: 0.2;
-//   }
-//   25% {
-//     opacity: 0.5;
-//   }
-//   50% {
-//     opacity: 1;
-//   }
-//   75% {
-//     opacity: 0.5;
-//   }
-//   100% {
-//     opacity: 0.2;
-//   }
-// }
 .marker {
   width: 50px;
   height: 50px;
@@ -49,6 +26,7 @@
   transform: translate(-50%, -50%);
   opacity: 1 !important;
 }
+
 @keyframes lostDog {
   0% {
     transform: scale(1.1);

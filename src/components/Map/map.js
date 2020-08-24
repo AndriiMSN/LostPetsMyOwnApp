@@ -39,7 +39,7 @@ export default class Map extends Component {
           <NavigationControl />
         </div>
         <Marker latitude={this.props.lat} longitude={this.props.lon} offsetLeft={-20} offsetTop={-10}>
-          <div>There</div>
+          <div className={mapStyles.bg}><div className={mapStyles.marker}></div></div>
         </Marker>
       </ReactMapGL>
     );
