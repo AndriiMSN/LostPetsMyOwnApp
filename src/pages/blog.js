@@ -9,13 +9,7 @@ import Head from '../components/head'
 import Adrress from '../components/Map/ftechAdrress'
 import WithCallbacks from '../components/Search-panel';
 
-function compare(a, b) {
-  if (a.value < b.value)
-    return -1;
-  if (a.value > b.value)
-    return 1;
-  return 0;
-}
+
 
 const BlogPage = () => {
   const data = useStaticQuery(graphql`
@@ -42,6 +36,13 @@ const BlogPage = () => {
     }
   `)
   console.log(data);
+  function compare(a, b) {
+    if (a.value < b.value)
+      return -1;
+    if (a.value > b.value)
+      return 1;
+    return 0;
+  }
   const token = 'pk.eyJ1IjoiYW5kcmlpbXNuIiwiYSI6ImNrZGYzZ200YTJudXQyeHNjMjk2OTk2bjUifQ.njqMX6x6U946yjJdWwA7mA';
   const options = []
   const region = /place/
@@ -52,7 +53,7 @@ const BlogPage = () => {
         value: json.features.find(place => place.id.match(region)).text,
         label: json.features.find(place => place.id.match(region)).text
       }))
-    console.log(options)
+    options.sort(compare)
   }
   )
   return (
