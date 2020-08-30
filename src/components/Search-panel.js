@@ -28,7 +28,7 @@ export default class WithCallbacks extends Component {
   };
 
   handleInputChange = (newValue) => {
-    const inputValue = newValue.replace(/\W/g, '');
+    const inputValue = newValue;
     this.setState({ inputValue });
     return inputValue;
   };
@@ -36,7 +36,7 @@ export default class WithCallbacks extends Component {
     console.log(this.props.options)
     return (
       <div>
-        {/* <pre>inputValue: "{this.state.inputValue}"</pre> */}
+        <pre>inputValue: "{this.state.inputValue}"</pre>
         <AsyncSelect
           cacheOptions
           loadOptions={this.loadOptions}

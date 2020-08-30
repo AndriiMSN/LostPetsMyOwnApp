@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby'
+import { BLOCKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Map from '../components/Map/map'
 import Layout from '../components/layout';
@@ -24,10 +25,11 @@ export const query = graphql`
 const Blog = (props) => {
   const option = {
     renderNode: {
-      "embedded-asset-block": (node) => {
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        console.log(node);
         const alt = node.data.target.fields.title['en-US']
         const url = node.data.target.fields.file['en-US'].url
-        return <img alt={alt} src={url} />
+        return <img style={{ width: "250 px" }} alt={alt} src={url} />
       }
     }
   }
