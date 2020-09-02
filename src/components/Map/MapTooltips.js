@@ -53,9 +53,9 @@ export default class CitiesMap extends Component {
     super(props);
     this.state = {
       viewport: {
-        latitude: 37.785164,
-        longitude: -100,
-        zoom: 1,
+        latitude: 45.785164,
+        longitude: 20,
+        zoom: 3,
         bearing: 0,
         pitch: 0
       },
@@ -69,7 +69,11 @@ export default class CitiesMap extends Component {
   };
 
   _onClickMarker = city => {
-    this.setState({ popupInfo: city });
+    this.setState({ popupInfo: null });
+    console.log('null');
+    setTimeout(() => {
+      this.setState({ popupInfo: city });
+    }, 150)
   };
 
   _renderPopup() {

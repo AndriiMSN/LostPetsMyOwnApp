@@ -37,10 +37,11 @@ const AboutPage = () => {
   const region = /place/
   data.allContentfulBlogPost.edges.forEach(async (edge) => {
     CITIES.push({
-      city: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} />,
-      image: (edge.node.image) ? (`url("https:${edge.node.image.file.url}")`) : (`url("https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__340.jpg")`),
+      image: (edge.node.image) ? (`https:${edge.node.image.file.url}`) : ("https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__340.jpg"),
       latitude: edge.node.location.lat,
-      longitude: edge.node.location.lon
+      longitude: edge.node.location.lon,
+      slug: edge.node.slug,
+      title: edge.node.breed
     })
   })
   return (
