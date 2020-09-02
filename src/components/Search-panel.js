@@ -9,9 +9,13 @@ import AsyncSelect from 'react-select/async';
 export default class WithCallbacks extends Component {
   constructor(props) {
     super(props)
-    this.state = { inputValue: '' };
+    this.state = {
+      inputValue: '',
+      selectedOptions: []
+    };
     this.options = this.props.options; // prepend this
     this.filterColors = this.filterColors.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
 
@@ -24,7 +28,7 @@ export default class WithCallbacks extends Component {
   loadOptions = (inputValue, callback) => {
     setTimeout(() => {
       callback(this.filterColors(inputValue));
-    }, 100);
+    }, 200);
   };
 
   handleInputChange = (newValue) => {
@@ -32,17 +36,25 @@ export default class WithCallbacks extends Component {
     this.setState({ inputValue });
     return inputValue;
   };
+
+  handleChange = (selectedOptions) => {
+    this.setState({ selectedOptions });
+  }
   render() {
     console.log(this.props.options)
+    const selectedOption = this.state.selectedOptions;
     return (
       <div>
         <pre>inputValue: "{this.state.inputValue}"</pre>
+        <p>{this.state.selectedOptions.value}</p>
         <AsyncSelect
           cacheOptions
           loadOptions={this.loadOptions}
           defaultOptions={this.options}
           onInputChange={this.handleInputChange}
           placeholder='Введите город'
+          value={selectedOption}
+          onChange={this.handleChange}
         />
       </div>
     );
