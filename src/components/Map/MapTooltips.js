@@ -101,7 +101,7 @@ export default class CitiesMap extends Component {
         onViewportChange={this._updateViewport}
         mapboxApiAccessToken={TOKEN}
       >
-        <Pins data={CITIES} onClick={this._onClickMarker} />
+        <Pins data={this.props.cities} onClick={this._onClickMarker} />
 
         {this._renderPopup()}
 
