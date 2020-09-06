@@ -1,13 +1,88 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
-import Select from 'react-select';
+import { createStore, combineReducers, Middleware, applyMiddleware } from 'redux'
+import logger from 'redux-logger'
+import { Provider } from 'react-redux'
 
 
 import Layout from '../components/layout';
-import blogStyles from './Styles/blog.module.scss'
+import List from '../components/list'
 import Head from '../components/head'
-import Adrress from '../components/Map/ftechAdrress'
 import WithCallbacks from '../components/Search-panel';
+
+
+// const mathReducer = (state = {
+//   result: 1,
+//   lastvalue: []
+// }, action) => {
+//   switch (action.type) {
+//     case "Select":
+//       state = {
+//         ...state,
+//         result: state.result + action.payload,
+//         lastvalue: [...state.lastvalue, action.payload]
+//       }
+//       break;
+//     case "Another":
+//       state = {
+//         ...state,
+//         result: state.result - action.payload,
+//         lastvalue: [...state.lastvalue, action.payload]
+//       }
+//       break;
+//   }
+//   return state
+// }
+
+// const userReducer = (state = {
+//   username: "Andrii", age: 22
+// }, action) => {
+//   switch (action.type) {
+//     case "SET_NAME":
+//       state = {
+//         ...state,
+//         name: action.payload
+//       }
+//       break;
+//     case "SET_AGE":
+//       state = {
+//         ...state,
+//         age: action.payload
+//       }
+//       break;
+//   }
+//   return state
+// }
+
+// const myLogger = (store) => (next) => (action) => {
+//   console.log("Logged Action", action);
+//   next(action)
+// }
+
+// const store = createStore(
+//   combineReducers({ math: mathReducer, user: userReducer }),
+//   {},
+//   applyMiddleware(myLogger, logger)
+// )
+
+// store.subscribe(() => {
+//   console.log("Store updated", store.getState());
+// })
+
+// store.dispatch({
+//   type: "Select",
+//   payload: 50
+// })
+
+// store.dispatch({
+//   type: "Another",
+//   payload: 100
+// })
+
+// store.dispatch({
+//   type: "SET_AGE",
+//   payload: 5
+// })
 
 
 
@@ -45,6 +120,7 @@ const BlogPage = () => {
   }
   const token = 'pk.eyJ1IjoiYW5kcmlpbXNuIiwiYSI6ImNrZGYzZ200YTJudXQyeHNjMjk2OTk2bjUifQ.njqMX6x6U946yjJdWwA7mA';
   const options = []
+  const breeds = []
   const region = /place/
   data.allContentfulBlogPost.edges.forEach(async (edge) => {
     await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${edge.node.location.lon},${edge.node.location.lat}.json?access_token=${token}`)
@@ -54,45 +130,53 @@ const BlogPage = () => {
         label: json.features.find(place => place.id.match(region)).text
       }))
     options.sort(compare)
+    breeds.push({
+      value: edge.node.breed,
+      label: edge.node.breed
+    })
   }
   )
+  const [breed, setBreed] = useState("")
+  const [city, setCity] = useState("")
+
+
   return (
     <Layout>
       <Head title='Blog' />
       <h1>lost pets</h1>
       {console.log(options)}
-      <WithCallbacks options={options.sort(compare)} />
-      <ol className={blogStyles.posts}>
-        {
-          data.allContentfulBlogPost.edges.map((edge) => {
-            return (
-
-              <li>
-                <Link to={`/blog/${edge.node.slug}`}>
-                  <div style={{ backgroundColor: "pink" }} style={(edge.node.image) ? ({ backgroundImage: `url("${edge.node.image.file.url}")` }) : ({ backgroundImage: `url("https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__340.jpg")` })}>
-                    <h2>
-                      {edge.node.title}
-                    </h2>
-                    <p>
-                      {edge.node.publishedDate}
-                    </p>
-                    <p>
-                      Порода: {edge.node.breed}
-                    </p>
-                    <p>
-                      Статус: <span>{(edge.node.find) ? 'Найден' : 'Потерян'}</span>
-                    </p>
-                    <p>city: <Adrress x={edge.node.location.lon} y={edge.node.location.lat} /></p>
-                  </div>
-                </Link>
-
-              </li>
-            )
-          })
-        }
-      </ol>
+      <WithCallbacks options={options} title='город' selectCity={(hadleCity) => setCity(hadleCity)}
+      />
+      <WithCallbacks options={breeds.sort(compare)} title='породу'
+        selectBreed={(hadleBreed) => setBreed(hadleBreed)} />
+      <List breed={breed} city={city} />
     </Layout >
   )
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.user,
+//     math: state.math
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setName: (name) => {
+//       dispatch({
+//         type: "SET_NAME",
+//         payload: name
+//       })
+//     }
+//   }
+// }
+
 export default BlogPage
+
+
+
+
+
+
+

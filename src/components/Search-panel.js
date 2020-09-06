@@ -13,7 +13,7 @@ export default class WithCallbacks extends Component {
       inputValue: '',
       selectedOptions: []
     };
-    this.options = this.props.options; // prepend this
+    this.options = this.props.options;
     this.filterColors = this.filterColors.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -39,20 +39,25 @@ export default class WithCallbacks extends Component {
 
   handleChange = (selectedOptions) => {
     this.setState({ selectedOptions });
+    if (this.props.selectCity) {
+      this.props.selectCity(selectedOptions.value)
+    }
+    if (this.props.selectBreed) {
+      this.props.selectBreed(selectedOptions.value)
+    }
   }
   render() {
-    console.log(this.props.options)
     const selectedOption = this.state.selectedOptions;
     return (
       <div>
-        <pre>inputValue: "{this.state.inputValue}"</pre>
+        {/* <pre>inputValue: "{this.state.inputValue}"</pre> */}
         <p>{this.state.selectedOptions.value}</p>
         <AsyncSelect
           cacheOptions
           loadOptions={this.loadOptions}
           defaultOptions={this.options}
           onInputChange={this.handleInputChange}
-          placeholder='Введите город'
+          placeholder={`Введите ${this.props.title}`}
           value={selectedOption}
           onChange={this.handleChange}
         />
