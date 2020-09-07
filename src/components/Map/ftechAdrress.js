@@ -20,5 +20,5 @@ export default function DataFteching({ x, y }) {
   }, [])
   if (loading) return null;
   // console.log({ adrress.features.find(place => place.id.match(region)).text })
-  return (adrress.features.find(place => place.id.match(region)).text)
+  return ((adrress.features.find(place => place.id.match(region)).text))
 }

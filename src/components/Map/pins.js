@@ -12,7 +12,18 @@ const SIZE = 20;
 export default class Pins extends PureComponent {
   render() {
     const { data, onClick } = this.props;
-    console.log('type:', typeof (data), data, data.length);
+    const changeCoordinatesData = []
+    data.forEach((el) => {
+      if (changeCoordinatesData.indexOf(el.longitude) == -1) {
+        changeCoordinatesData.push(
+          el.longitude
+        )
+      } else {
+        el.longitude += 0.001
+      }
+    })
+
+    console.log("oldData -", data, changeCoordinatesData);
     return data.map((city, index) => (
       <Marker key={`marker-${index}`} longitude={city.longitude} latitude={city.latitude}>
         <svg
