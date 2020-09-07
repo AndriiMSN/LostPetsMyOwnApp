@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
-import Adrress from '../components/Map/ftechAdrress'
+
+import Post from './post';
 import blogStyles from '../pages/Styles/blog.module.scss'
 
 const List = ({ breed, city }) => {
@@ -29,37 +30,12 @@ const List = ({ breed, city }) => {
   `)
   // console.log(JSON.stringify(data));
   { console.log(city) }
-
   return (
     <ol className={blogStyles.posts}>
       {
         data.allContentfulBlogPost.edges.map((edge) => {
           return (
-            <li style={((breed.length == 0 || (breed) == edge.node.breed)) ? {} : { display: "none" }
-            }
-            // style={
-            //   (<Adrress x={edge.node.location.lon} y={edge.node.location.lat} /> == city) ? { color: "green" } : { color: "red" }
-            // }
-            >
-              <Link to={`/blog/${edge.node.slug}`}>
-                <div style={{ backgroundColor: "pink" }} style={(edge.node.image) ? ({ backgroundImage: `url("${edge.node.image.file.url}")` }) : ({ backgroundImage: `url("https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__340.jpg")` })}>
-                  <h2>
-                    {edge.node.title}
-                  </h2>
-                  <p>
-                    {edge.node.publishedDate}
-                  </p>
-                  <p>
-                    Порода: {edge.node.breed}
-                  </p>
-                  <p>
-                    Статус: <span>{(edge.node.find) ? 'Найден' : 'Потерян'}</span>
-                  </p>
-                  <p><Adrress x={edge.node.location.lon} y={edge.node.location.lat} /></p>
-                </div>
-              </Link>
-
-            </li>
+            <Post edge={edge} breed={breed} city={city} />
           )
         })
       }
