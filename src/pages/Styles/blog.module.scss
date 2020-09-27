@@ -3,9 +3,11 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
   li {
     margin: 1rem;
-    width: 25%;
+    width: 500px;
     a {
       color: black;
       display: block;

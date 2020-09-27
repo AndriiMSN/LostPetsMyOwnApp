@@ -57,6 +57,7 @@ const BlogPage = () => {
     await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${edge.node.location.lon},${edge.node.location.lat}.json?access_token=${token}`)
       .then(response => response.json())
       .then((json) => {
+        console.log(json.features.find(place => place.id.match(region)))
         const city = json.features.find(place => place.id.match(region)).text
         if (optionsFilter.indexOf(city) == -1) {
           optionsFilter.push(city)
