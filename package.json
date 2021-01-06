@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.1",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "gatsby": "^2.23.12",
     "gatsby-plugin-react-helmet": "^3.3.9",
     "gatsby-plugin-sass": "^2.3.10",
